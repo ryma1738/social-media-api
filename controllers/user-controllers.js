@@ -13,7 +13,13 @@ const UserControllers = {
     getOneUser({ params }, res) {
         User.findOne({_id: params.id})
         .populate('Thoughts')
-        .then(dbData => res.json(dbData))
+        .then(dbData => {
+            if (!dbData) {
+                res.status(404).json({message: 'No user with that id was found!'});
+                return;
+            }
+            res.json(dbData)
+        })
         .catch(err => {
             console.log(err);
             res.status(404).json({message: 'Could not find user!'})
