@@ -3,7 +3,6 @@ const { Thought } = require('../models');
 const thoughtControllers = {
     getAllThoughts(req, res) {
         Thought.find({})
-        .populate('Thoughts')
         .then(dbData => res.json(dbData))
         .catch(err => {
             console.log(err);
@@ -12,7 +11,6 @@ const thoughtControllers = {
     },
     getOneThought({ params }, res) {
         Thought.findOne({_id: params.id})
-        .populate('Thoughts')
         .then(dbData => {
             if (!dbData) {
                 res.status(404).json({message: 'No thought with that id was found!'});
@@ -65,7 +63,7 @@ const thoughtControllers = {
         }). catch(err => res.json(err));
     },
     deleteReaction({params}, res) {
-        Thought.findOneAndUpdate({_id: params.id}, {$pull: {reactions: [params.reactionId]}})
+        Thought.findOneAndUpdate({_id: params.id}, {$pull: {reactions: {reactionId: params.reactionId}}}, {new: true})
         .then(dbData => {
             if (!dbData) {
                 res.status(404).json({message: 'No thought with that id was found!'});

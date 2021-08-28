@@ -1,4 +1,5 @@
 const router = require('express').Router();
+
 const {
     getAllThoughts,
     getOneThought,
@@ -23,3 +24,5 @@ router.route('/:id/reactions')
 
 router.route('/:id/reactions/:reactionId')
 .delete(deleteReaction);
+
+module.exports = router;

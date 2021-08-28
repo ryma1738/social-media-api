@@ -3,7 +3,7 @@ const { User } = require('../models');
 const UserControllers = {
     getAllUsers(req, res) {
         User.find({})
-        .populate('Thoughts')
+        .populate('thoughts')
         .then(dbData => res.json(dbData))
         .catch(err => {
             console.log(err);
@@ -12,7 +12,7 @@ const UserControllers = {
     },
     getOneUser({ params }, res) {
         User.findOne({_id: params.id})
-        .populate('Thoughts')
+        .populate('thoughts')
         .then(dbData => {
             if (!dbData) {
                 res.status(404).json({message: 'No user with that id was found!'});
@@ -63,7 +63,7 @@ const UserControllers = {
 
     },
     deleteFriend({ params }, res) {
-        User.updateOne({_id: params.id}, { $pull: {friends: { _id: params.friendId }}})
+        User.updateOne({_id: params.id}, { $pull: {friends: params.friendId }})
         .then(dbData => res.json(dbData))
         .catch(err => {
             console.log(err);
