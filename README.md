@@ -10,7 +10,7 @@ To install the project download the files and navigate to them via the command p
 To use this project launch the server with npm start, you can use the api routes and test the data using a api call program like Insomnia.
 
 ## Walk Through Video
-
+https://youtu.be/UGpIsnA61J8
 
 ## License
 
